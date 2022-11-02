@@ -14,7 +14,6 @@ import requests
 import zhon.hanzi
 from lxml import etree
 
-
 # Reference: https://github.com/fxsjy/jieba/blob/1e20c89b66f56c9301b0feed211733ffaa1bd72a/jieba/__init__.py#L27
 log_console = logging.StreamHandler(sys.stderr)
 default_logger = logging.getLogger('jdspider')
@@ -79,7 +78,7 @@ class JDSpider:
         html = etree.HTML(response.text)
         return html.xpath('//li[@class="gl-item"]/@data-sku')
 
-    def getData(self, maxPage, score,):  # maxPage是爬取评论的最大页数，每页10条数据。差评和好评的最大一般页码不相同，一般情况下：好评>>差评>中评
+    def getData(self, maxPage, score, ):  # maxPage是爬取评论的最大页数，每页10条数据。差评和好评的最大一般页码不相同，一般情况下：好评>>差评>中评
         # maxPage遇到超出的页码会自动跳出，所以设大点也没有关系。
         # score是指那种评价类型，好评3、中评2、差评1。
 

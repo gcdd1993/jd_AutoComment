@@ -19,7 +19,6 @@ from lxml import etree
 
 import jdspider
 
-
 # constants
 CONFIG_PATH = './config.yml'
 USER_CONFIG_PATH = './config.user.yml'
@@ -55,6 +54,7 @@ _FORMATTER_COLORS = {
     'CRITICAL': _COLORS['red']
 }
 
+
 def format_style_seqs(msg, use_style=True):
     if use_style:
         msg = msg.replace('$RESET', _RESET_SEQ)
@@ -66,6 +66,7 @@ def format_style_seqs(msg, use_style=True):
         msg = msg.replace('$BOLD', '')
         msg = msg.replace('$ITALIC', '')
         msg = msg.replace('$UNDERLINED', '')
+
 
 class StyleFormatter(logging.Formatter):
     def __init__(self, fmt=None, datefmt=None, use_style=True):
@@ -304,7 +305,7 @@ def sunbw(N, opts=None):
         oname = Order.xpath('ul/li[1]/div/div[2]/div[1]/a/text()')[0]
         pid = Order.xpath('@pid')[0]
         oid = Order.xpath('@oid')[0]
-        opts['logger'].info(f'\t开始第{i+1}，{oname}')
+        opts['logger'].info(f'\t开始第{i + 1}，{oname}')
         opts['logger'].debug('pid: %s', pid)
         opts['logger'].debug('oid: %s', oid)
         # 获取图片
@@ -419,7 +420,7 @@ def review(N, opts=None):
     for i, Order in enumerate(Order_data):
         oname = Order.xpath('td[1]/div/div[2]/div/a/text()')[0]
         _id = Order.xpath('td[3]/div/a/@href')[0]
-        opts['logger'].info(f'\t开始第{i+1}，{oname}')
+        opts['logger'].info(f'\t开始第{i + 1}，{oname}')
         opts['logger'].debug('_id: %s', _id)
         url1 = ("https://club.jd.com/afterComments/"
                 "saveAfterCommentAndShowOrder.action")
@@ -500,7 +501,7 @@ def Service_rating(N, opts=None):
     for i, Order in enumerate(Order_data):
         oname = Order.xpath('td[1]/div[1]/div[2]/div/a/text()')[0]
         oid = Order.xpath('td[4]/div/a[1]/@oid')[0]
-        opts['logger'].info(f'\t开始第{i+1}，{oname}')
+        opts['logger'].info(f'\t开始第{i + 1}，{oname}')
         opts['logger'].debug('oid: %s', oid)
         url1 = (f'https://club.jd.com/myJdcomments/insertRestSurvey.action'
                 f'?voteid=145&ruleid={oid}')
