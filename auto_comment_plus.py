@@ -115,7 +115,7 @@ def generation(pname, _class=0, _type=1, opts=None):
                 "赠品还行。"
             ]
         else:
-            result = spider.getData(4, 3)  # 这里可以自己改
+            result = spider.get_data(4, 3)  # 这里可以自己改
         opts['logger'].debug('Result: %s', result)
 
     # class 0是评价 1是提取id
