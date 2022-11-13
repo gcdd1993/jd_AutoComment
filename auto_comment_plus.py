@@ -272,6 +272,7 @@ def ordinary(N, opts=None):
     N['待评价订单'] -= 1
     return N
 
+
 '''
 # 晒单评价
 def sunbw(N, opts=None):
@@ -369,6 +370,7 @@ def sunbw(N, opts=None):
         N['待晒单'] -= 1
     return N
 '''
+
 
 # 追评
 def review(N, opts=None):
@@ -675,33 +677,34 @@ if __name__ == '__main__':
         cfg = yaml.safe_load(f)
     logger.debug('Closed the configuration file')
     logger.debug('Configurations in Python-dict format: %s', cfg)
-    ck = cfg['user']['cookie']
+    cks = cfg['user']['cookies']
+    logger.info(f"开始执行 {len(cks)} 个账号")
+    for ck in cks:
+        headers = {
+            'cookie': ck.encode("utf-8"),
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36',
+            'Connection': 'keep-alive',
+            'Cache-Control': 'max-age=0',
+            'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'DNT': '1',
+            'Upgrade-Insecure-Requests': '1',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+            'Sec-Fetch-Site': 'same-site',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-User': '?1',
+            'Sec-Fetch-Dest': 'document',
+            'Referer': 'https://order.jd.com/',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'zh-CN,zh;q=0.9',
+        }
+        logger.debug('Builtin HTTP request header: %s', headers)
 
-    headers = {
-        'cookie': ck.encode("utf-8"),
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36',
-        'Connection': 'keep-alive',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'DNT': '1',
-        'Upgrade-Insecure-Requests': '1',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'Sec-Fetch-Site': 'same-site',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-User': '?1',
-        'Sec-Fetch-Dest': 'document',
-        'Referer': 'https://order.jd.com/',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Accept-Language': 'zh-CN,zh;q=0.9',
-    }
-    logger.debug('Builtin HTTP request header: %s', headers)
-
-    logger.debug('Starting main processes')
-    try:
-        main(opts)
-    # NOTE: It needs 3,000 times to raise this exception. Do you really want to
-    # do like this?
-    except RecursionError:
-        logger.error("多次出现未完成情况，程序自动退出")
+        logger.debug('Starting main processes')
+        try:
+            main(opts)
+        # NOTE: It needs 3,000 times to raise this exception. Do you really want to
+        # do like this?
+        except RecursionError:
+            logger.error("多次出现未完成情况，程序自动退出")
