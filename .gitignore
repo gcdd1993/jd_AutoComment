@@ -133,3 +133,4 @@ config.user.yml
 *.db
 *.db-journal
 .idea
+config.yml
