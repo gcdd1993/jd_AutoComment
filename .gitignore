@@ -132,3 +132,4 @@ dmypy.json
 config.user.yml
 *.db
 *.db-journal
+.idea
